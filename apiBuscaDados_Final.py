@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from typing import Optional
 from fastapi.openapi.docs import get_swagger_ui_html
 
+#testecommit
 
 #PRODUCAO
 #http://vitibrasil.cnpuv.embrapa.br/index.php?ano=1995&opcao=opt_02
@@ -127,18 +128,13 @@ def consultar_tabela(ano: int, opcao: Optional[str] = None, subopcao: Optional[s
     if cod_subopcao is not None:
         url += f"&subopcao={cod_subopcao}"
         
-    #apenas para uso na rede CVP
-    proxies = {
-        "http": "http://CVP13876:Leinha231090!@192.168.100.110:80",
-        "https": "http://CVP13876:Leinha231090!@192.168.100.110:80"
-    }
 
     print("URL: " + url)
 
-    response = requests.get(url, proxies=proxies)
+    response = requests.get(url)
 
     if response.status_code != 200:
-        raise HTTPException(status_code=404, detail="Tabela não encontrada")
+        raise HTTPException(status_code=404, detail="Tabela não encontrada1")
 
     soup = BeautifulSoup(response.text, "html.parser")
       
